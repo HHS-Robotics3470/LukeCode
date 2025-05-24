@@ -5,9 +5,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 public class WristController {
     private DcMotor wristMotor;
-    private double kP = 0.01;
-    private double kI = 0.0;
-    private double kD = 0.0005;
+    private double kP = 0.009;
+    private double kI = 0.0000000001;
+    private double kD = 0.0006;
 
     private double integral = 0;
     private double lastError = 0;

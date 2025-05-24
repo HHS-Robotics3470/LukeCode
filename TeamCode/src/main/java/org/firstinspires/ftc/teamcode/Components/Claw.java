@@ -10,15 +10,15 @@ public class Claw implements Component {
 
     private LinearOpMode myOpMode;
     private Servo clawServo;
+    private Servo wristServo;
     private DcMotorEx wristMotor;
     private ElapsedTime wristTimer = new ElapsedTime();
-    private boolean wristMoving = false;
-    private boolean isWristUp = false;
 
     private final double CLAW_OPEN_POSITION = 0.98;
     private final double CLAW_CLOSE_POSITION = 1.0;
-    private final int WRIST_UP_POSITION = 0;
-    private final int WRIST_DOWN_POSITION = 1;
+    private final double WRIST_UP_POSITION = 1;
+    private final double WRIST_DOWN_POSITION = 0.98;
+    private boolean isWristUp = false;
 
     private boolean isClawOpen = false; // Track claw open/close state
 
@@ -27,7 +27,7 @@ public class Claw implements Component {
         myOpMode = robotHardware.myOpMode;
         wristMotor = robotHardware.wristMotor;
         clawServo = robotHardware.clawServo;
-
+        wristServo = robotHardware.wristServo;
         wristMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
     }
@@ -44,13 +44,18 @@ public class Claw implements Component {
             clawServo.setPosition(CLAW_CLOSE_POSITION);
         }
     }
-//open w a and close w b code
-    public void clawOpen() {
-        clawServo.setPosition(CLAW_OPEN_POSITION);
-    }
 
-    public void clawClose() {
-        clawServo.setPosition(CLAW_CLOSE_POSITION);
+    public void toggleWrist() {
+        isWristUp = !isWristUp;  // Toggle claw state
+
+        if (isWristUp) {
+            wristServo.setPosition(WRIST_UP_POSITION);
+        } else {
+            wristServo.setPosition(WRIST_DOWN_POSITION);
+        }
+    }
+    public double getWristPos() {
+        return wristServo.getPosition();
     }
 
     public double getClawPos() {

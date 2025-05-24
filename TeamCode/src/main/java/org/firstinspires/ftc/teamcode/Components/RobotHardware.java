@@ -48,6 +48,7 @@ public class RobotHardware {
 
         // Servos
         clawServo = myOpMode.hardwareMap.get(Servo.class, "clawServo");
+        wristServo = myOpMode.hardwareMap.get(Servo.class, "wristServo");
         // wristServo = myOpMode.hardwareMap.get(Servo.class, "wristServo"); // Uncomment if you use it
 
         // Initialize subsystems

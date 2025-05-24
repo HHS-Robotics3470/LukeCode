@@ -17,6 +17,7 @@ import org.firstinspires.ftc.teamcode.Components.WristController;
 public class TeleOP extends LinearOpMode {
 
     private boolean astate = false;
+    private boolean xstate = false;
     private boolean wasYPressed = false;
     private boolean wristUp = true;
 
@@ -35,6 +36,7 @@ public class TeleOP extends LinearOpMode {
 
         while (opModeIsActive()) {
             telemetry.addData("Claw", robot.claw.getClawPos());
+            telemetry.addData("Wrist" , robot.claw.getWristPos());
             telemetry.addData("Left Lift", robot.lifts.getlLifts());
             telemetry.addData("Right Lift", robot.lifts.getrLifts());
             robot.mecnum.driveRobot(gamepad1);
@@ -47,10 +49,17 @@ public class TeleOP extends LinearOpMode {
                 astate = false;
             }
 
+            if (gamepad1.x && !xstate) {
+                robot.claw.toggleWrist();
+                xstate = true;
+            } else if (!gamepad1.x && xstate) {
+                xstate = false;
+            }
+
             // Wrist control with Y
             if (gamepad1.y && !wasYPressed) {
                 wristUp = !wristUp;
-                wrist.setTargetPosition(wristUp ? 0 : -500); // Adjust based on your hardware
+                wrist.setTargetPosition(wristUp ? 0 : -400); // Adjust based on your hardware
             }
             wrist.update();
             wasYPressed = gamepad1.y;
@@ -63,6 +72,8 @@ public class TeleOP extends LinearOpMode {
             } else {
                 robot.lifts.sLifts();
             }
+
+
 
             telemetry.update();
         }
