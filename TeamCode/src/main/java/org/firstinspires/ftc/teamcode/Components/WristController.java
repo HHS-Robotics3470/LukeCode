@@ -1,13 +1,13 @@
 package org.firstinspires.ftc.teamcode.Components;
-
+import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
-
+@Config
 public class WristController {
     private DcMotor wristMotor;
-    private double kP = 0.009;
-    private double kI = 0.0000000001;
-    private double kD = 0.0006;
+    private static double kP = 0.009;
+    private static double kI = 0.0000000001;
+    private static double kD = 0.0006;
 
     private double integral = 0;
     private double lastError = 0;
